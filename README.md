@@ -161,7 +161,7 @@ This way `yellIt` becomes more **generic**, meaning it only does one or two simp
 Now that we have some basic skills under our belt (*Author's note: do cats even wear belts?*) we can start being lazy. What?! Yes, that's right: programming is about being lazy. Larry Wall, inventor of the Perl programming language, called laziness the [most important virtue](http://c2.com/cgi/wiki?LazinessImpatienceHubris) of a good programmer. If computers didn't exist you would have to do all sorts of tedious tasks by hand, but if you learn to program you can lay in the sun all day while a computer somewhere runs your programs for you. It is a glorious lifestyle filled with relaxation!
 
 Loops are one of the most important ways to harness the power of a computer. Remember `Underscore.js` from earlier? Make sure you have it loaded in the page (remember: you can just hit the up arrow on your keyboard a few times and then hit `Enter` to load it in again if you need to) and try copy/pasting this into your console:
-  
+
 ```js
 function logANumber(someNumber) {
   console.log(someNumber)
@@ -227,7 +227,7 @@ To check that the new cat made it into your array you can use `.length`:
 ![console](images/array-push-length.png)
 
 Notice how `push` returned the length? Handy! Also take note that arrays will always **preserve ordering** which means they will remember the order in which you added or defined things. Not everything in JavaScript preserves ordering so remember this special property of Arrays!
-  
+
 ### <a id="objects" href="#objects">#</a> Objects
 
 Arrays are good for lists, but for other tasks they can be hard to work with. Consider our array of cat friends. What if you also wanted to store more than just names?
@@ -249,7 +249,7 @@ var firstCat = { name: "bill", lastName: "the cat", address: "The Alley" }
 var secondCat = { name: "tabby", lastName: "cat", address: "Grandmas House" }
 var thirdCat = { name: "ceiling", lastName: "cat", address: "Attic" }
 ```
-  
+
 Why would we do it this way? Because now we have a variable for each cat that we can use to get that cats values in a more convenient and readable way. 
 
 ![console](images/object-lookup.png)
@@ -405,7 +405,7 @@ Got another topic you wanna see covered? Open an issue for it [on github](http:/
 ### <a id="recommended-reading" href="#recommended-reading">#</a> Recommended reading
 
   JavaScript For Cats skips over lots of details that aren't important for getting started (cats are not known for their attention spans), but if you feel like you need to dive in deeper then check these out:
-  
+
   - [NodeSchool.io](http://nodeschool.io/) is a community driven, open source educational software that teaches various web development skills in an interactive, self-guided format. I helped make NodeSchool! Sadly it features fewer cats than this page. 
   - [Eloquent Javascript](http://eloquentjavascript.net/) is a free book that teaches you JavaScript! It's pretty good! Especially the chapter on [values, variables, and control flow](http://eloquentjavascript.net/chapter2.html)
   - [Mozilla's JavaScript Guide](https://developer.mozilla.org/en-US/docs/JavaScript/Guide) also has a pretty sweet intro chapter called [values, variables and literals](https://developer.mozilla.org/en-US/docs/JavaScript/Guide/Values,_variables,_and_literals)
@@ -420,5 +420,9 @@ Got another topic you wanna see covered? Open an issue for it [on github](http:/
 <center>![satisfied customer](images/customers3.png)</center>
 <center>![satisfied customer](images/customers4.png)</center>
 
+
+
+
 *JSForCats.com is a labor of love and work in progress by [@maxogden](http://twitter.com/maxogden). If you would like to contribute and make this tutorial better there is a Github repo [right over here](http://github.com/maxogden/javascript-for-cats).*
+
 <center>![console](images/awesome.jpg)</center>
