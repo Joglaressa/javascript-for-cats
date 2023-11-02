@@ -22,6 +22,7 @@ JavaScript for Cats is [CC0 Licensed](https://creativecommons.org/publicdomain/z
 - [Loops](#loops)
 - [Arrays](#arrays)
 - [Objects](#objects)
+- [Graphics](#graphics)
 - [Callbacks](#callbacks)
 - [Recommended reading](#recommended-reading)
 
@@ -306,16 +307,236 @@ var favorites = {
 
 When you combine different things like this you are making **data structures**, just like legos!
 
+### <a id="graphics" href="#graphics">#</a> Graphics
+
+JavaScript is not only useful for storing data, you can also use it to make shiny things . . . well, maybe not quite *shiny* things, but you can use its graphics functions to make your very own Red Dot.
+
+First, so that we can be as lazy as possible, we will need a text editor. Hang on, you're thinking, don't we use the [console](#basics)? Well, the advantage of a text editor is that you can save your work, go take a nice nap and come back and carry on. Your human may already have a text editor, maybe [Notepad++](https://notepad-plus-plus.org/), [Sublime](https://www.sublimetext.com/) or [Brackets](https://brackets.io/). 
+
+So, once you've got a text editor and a new file open, first you'll need to create a web page, which will contain the red dot JavaScript (unfortunately JavaScript can only make a red dot on screen but hey, it's still *your* red dot and we'll see how that can be a good thing). Meanwhile, think of the web page as the mat underneath your food bowl: not that interesting in itself, but it holds the good stuff. 
+
+```html
+<html>
+<canvas id="gameCanvas" width="800" height="600"></canvas>
+
+</html>
+```
+
+Copy the code above and save it as MyRedDot.htm. If you open the file in Chrome or any web browser, it will just look like a blank page, so, before you have that nap, let's add some content. If you were wondering what the `canvas` was for, it's the space in which we're going to put the red dot. To make it more visible, we can give it a colored background, like this:
+
+```html
+<html>
+<canvas id="gameCanvas" width="800" height="600"></canvas>
+<script>
+var canvas;
+var canvasContext;
+	
+window.onload = function() { 
+	canvas = document.getElementById('gameCanvas');
+	canvasContext = canvas.getContext('2d');
+	colorRect(0,0,canvas.width,canvas.height,'black');
+}
+	
+function colorRect(leftX,topY,width,height,drawColor) {
+	canvasContext.fillStyle = drawColor;
+	canvasContext.fillRect(leftX,topY,width,height);
+}
+
+</script>
+</html>
+```
+
+If you update MyRedDot.htm with this code and then open the file in Chrome you'll see  . . . a black rectangle on the web page, and you're probably thinking this is about as interesting as an empty dish. But you can at least mess about with this dish. Don't like black? Replace the word `black` with `blue` or `yellow`. Want a bigger rectangle? Change the `width` and `height` values. 
+
+Now let's add the red dot. To do this we'll need another function, `colorCircle` and we'll need to give it the size of the dot (the radius, 10), the colour (red, obviously) and the location. For the rectangle, we started drawing from the top left corner, for the dot we start from the location of the dot's centre. 
+
+```html
+<html>
+<canvas id="gameCanvas" width="800" height="600"></canvas>
+<script>
+var canvas;
+var canvasContext;
+var dotX = 50;
+var dotY = 50;
+	
+window.onload = function() {
+	canvas = document.getElementById('gameCanvas');
+	canvasContext = canvas.getContext('2d');
+	colorRect(0,0,canvas.width,canvas.height,'black');
+    colorCircle(dotX,dotY,10,'red');
+}
+	
+function colorRect(leftX,topY,width,height,drawColor) {
+	canvasContext.fillStyle = drawColor;
+	canvasContext.fillRect(leftX,topY,width,height);
+}
+
+function colorCircle(centerX,centerY,radius,drawColor) {
+	canvasContext.fillStyle = drawColor;
+	canvasContext.beginPath();
+	canvasContext.arc(centerX,centerY,radius,0,Math.PI*2,true);
+	canvasContext.fill();
+}
+    
+</script>
+</html>
+```
+
+Update MyRedDot.htm again with this code and look at it again in your browser: there it is, your very own red dot!! Too small? Increase the radius from 10. Change `dotX` and `dotY` to move it around (X and Y don't have to be the same as each other). You could even change it to a blue dot . . .  it's all yours. And yes, in case you were wondering, you could be greedy and have two red dots, but you'll need to add a `dot2X`and a `dot2Y` with different X and Y values (otherwise both your red dots will be in exactly the same place), and then call `colorCircle` again with these new values. 
+
+`colorCircle(dot2X,dot2Y,10,'red');`
+
+You might want to make the dots different colours, to see which is which.
+
+So after all that excitement, it's definitely time for a nap.
+
+Feeling refreshed? Had a little snack maybe? Time to get your red dot moving.
+
+Update MyRedDot.htm with this code.
+
+```html
+<html>
+<canvas id="gameCanvas" width="800" height="600"></canvas>
+
+<script>
+var canvas;
+var canvasContext;
+var dotX = 50;
+var dotY = 50;
+var dotSpeedX = 10;
+var dotSpeedY = 4;
+	
+window.onload = function() {
+	canvas = document.getElementById('gameCanvas');
+	canvasContext = canvas.getContext('2d');
+	
+	var framesPerSecond = 30;
+	setInterval(function() {
+			moveDot();
+			drawEverything();	
+		}, 1000/framesPerSecond);
+}
+	
+function moveDot() {
+	dotX = dotX + dotSpeedX;
+	dotY = dotY + dotSpeedY;
+}
+	
+function drawEverything() {
+	// next line blanks out the screen with black
+	colorRect(0,0,canvas.width,canvas.height,'black');
+	// next line draws the dot
+	colorCircle(dotX, dotY, 10, 'red');
+}
+	
+function colorRect(leftX,topY, width,height, drawColor) {
+	canvasContext.fillStyle = drawColor;
+	canvasContext.fillRect(leftX,topY, width,height);
+}
+
+function colorCircle(centerX, centerY, radius, drawColor) {
+	canvasContext.fillStyle = drawColor;
+	canvasContext.beginPath();
+	canvasContext.arc(centerX, centerY, radius, 0,Math.PI*2,true);
+	canvasContext.fill();
+}
+	
+</script>
+
+</html>
+```
+
+So what have we got that's new? Firstly there are variables for the speed the dot will move in each direction. Then there's a new function, moveDot() and another new function drawEverything() which is just calling the drawing functions we've seen already (but now we can see why they needed to be functions). But why do we need drawEverything()? Well, the way JavaScript 'moves' the dot is to keep drawing it again and again, at 30 times per second (did you spot where that comes from?). So, give it a go in a browser.
+
+You may have been extremely disappointed to see your dot disappear out of the rectangle, never to be seen again. Stop lashing that tail, we can fix this. Try this code: better now?
+
+```html
+<html>
+<canvas id="gameCanvas" width="800" height="600"></canvas>
+
+<script>
+var canvas;
+var canvasContext;
+var dotX = 50;
+var dotY = 50;
+var dotSpeedX = 10;
+var dotSpeedY = 4;
+
+	
+window.onload = function() {
+	canvas = document.getElementById('gameCanvas');
+	canvasContext = canvas.getContext('2d');
+	
+	var framesPerSecond = 30;
+	setInterval(function() {
+			moveDot();
+			drawEverything();	
+		}, 1000/framesPerSecond);
+
+}
+	
+function moveDot() {
+	dotX = dotX + dotSpeedX;
+	dotY = dotY + dotSpeedY;
+	// keep the dot visible on the screen
+	if(dotY < 0) {
+		dotSpeedY = -dotSpeedY;
+	}
+	if(dotY > canvas.height) {
+		dotSpeedY = -dotSpeedY;
+	}
+	if(dotX < 0) {
+		dotSpeedX = -dotSpeedX;
+	}
+	if(dotX > canvas.width) {
+		dotSpeedX = -dotSpeedX;
+	}
+}
+	
+function drawEverything() {
+	// next line blanks out the screen with black
+	colorRect(0,0,canvas.width,canvas.height,'black');
+	// next line draws the dot
+	colorCircle(dotX, dotY, 10, 'red');
+}
+	
+function colorRect(leftX,topY, width,height, drawColor) {
+	canvasContext.fillStyle = drawColor;
+	canvasContext.fillRect(leftX,topY, width,height);
+}
+
+function colorCircle(centerX, centerY, radius, drawColor) {
+	canvasContext.fillStyle = drawColor;
+	canvasContext.beginPath();
+	canvasContext.arc(centerX, centerY, radius, 0,Math.PI*2,true);
+	canvasContext.fill();
+}
+	
+</script>
+
+</html>
+```
+
+Look at moveDot() again, now it has something new, an `if` condition. The basic form works like this:
+
+```
+if(some condition is met) {
+		do something in response;
+	}
+```
+
+What this is doing is saying, if the dot gets to the edge of the rectangle, change its direction so it moves back into the middle. Now you can catch the red dot!
+
 ### <a id="callbacks" href="#callbacks">#</a> Callbacks
 
 Callbacks aren't really a feature of JavaScript like `Object` or `Array`, but instead just a certain way to use functions. To understand why callbacks are useful you first have to learn about asynchronous (often shortened to async) programming. Asynchronous code by definition is code written in a way that is not synchronous. Synchronous code is easy to understand and write. Here is an example to illustrate:
 
 ```js
-var photo = download('http://foo-chan.com/images/sp.jpg')
+var photo = download('https://placekitten.com/400/400')
 uploadPhotoTweet(photo, '@maxogden')
 ```
 
-This synchronous [pseudo-code](http://simple.wikipedia.org/wiki/Pseudocode) downloads an adorable cat photo and then uploads the photo to twitter and tweets the photo at `@maxogden`. Pretty straightforward!
+This synchronous [pseudo-code](http://simple.wikipedia.org/wiki/Pseudocode) downloads an adorable cat photo (replace /400/400 with /300/400 - it's just the photo size - for a different adorable cat photo) and then uploads the photo to twitter and tweets the photo at `@maxogden`. Pretty straightforward! 
 
 (*Author's note: I @maxogden do happily accept random cat photo tweets*)
 
